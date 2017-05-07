@@ -23,14 +23,14 @@ namespace CrossZero.Lesson1
         public MainWindow()
         {
             InitializeComponent();
-            buttons = new []{ button11, button12, button13, button21, button22, button23, button31, button32, button33 };
+            buttons = new[] { button11, button12, button13, button21, button22, button23, button31, button32, button33 };
 
             foreach (var i in buttons)
             {
-
                 i.Click += I_Click;
             }
         }
+
         string user = "";
         string computer = "";
         Button[] buttons;
@@ -43,7 +43,6 @@ namespace CrossZero.Lesson1
                 i.IsEnabled = true;
                 i.Content = "";
             }
-            
 
             if (checkO.IsChecked == true && checkX.IsChecked != true)
             {
@@ -52,10 +51,7 @@ namespace CrossZero.Lesson1
 
             else if (checkO.IsChecked == checkX.IsChecked)
             { MessageBox.Show("Выберите маркер"); }
-
-
         }
-
 
         private bool Wins()
         {
@@ -73,6 +69,16 @@ namespace CrossZero.Lesson1
             else return false;
         }
 
+        private bool NoWiners()
+        {
+            foreach (var i in buttons)
+            {
+                if ((string)i.Content == "")
+                { return false; }
+            }
+            return true;
+        }
+
         private void EndGame()
         {
             foreach (var j in buttons)
@@ -84,12 +90,17 @@ namespace CrossZero.Lesson1
         private void I_Click(object sender, RoutedEventArgs e)
         {
             ((Button)sender).Content = user;
+            ((Button)sender).IsEnabled = false;
 
             if (Wins())
             {
                 MessageBox.Show("Вы выиграли");
                 EndGame();
-                
+            }
+            else if (NoWiners())
+            {
+                MessageBox.Show("Ничья");
+                EndGame();
             }
             else ComputerPlay();
         }
@@ -98,7 +109,6 @@ namespace CrossZero.Lesson1
         {
             this.user = "X";
             this.computer = "O";
-
         }
 
         private void CheckO_Checked(object sender, RoutedEventArgs e)
@@ -120,17 +130,18 @@ namespace CrossZero.Lesson1
                         MessageBox.Show("Вы проиграли");
                         EndGame();
                     }
+                    else if (NoWiners())
+                    {
+                        MessageBox.Show("Ничья");
+                        EndGame();
+                    }
                     return;
                 }
             }
 
             MessageBox.Show("Ничья!");
             EndGame();
-                
-            }
         }
-
-
-
     }
+}
 
