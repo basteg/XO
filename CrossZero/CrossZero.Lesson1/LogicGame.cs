@@ -27,6 +27,17 @@ namespace CrossZero.Lesson1
             state = StateGame.InProgress;
         }
 
+        public void End()
+        {
+
+            for (int i = 0; i < fields.Length; i++)
+            {
+                fields[i] = FieldGame.EmptyField;
+            }
+            state = StateGame.NotStart;
+        }
+
+
         public void CompPlay()
         {
                 for (int i=0; i<fields.Length; i++)
@@ -42,12 +53,18 @@ namespace CrossZero.Lesson1
 
         public StateGame Step(int index, FieldGame PlayerField)
         {
+ 
             if (state != StateGame.InProgress)
             {
                 return state;
+                
             }
             if (index > -1 && index < fields.Length)
             {
+                if(fields[index] !=FieldGame.EmptyField)
+                {
+                    throw new ExceptionButtonClickClass();
+                }
                 fields[index] = PlayerField;
                 if (!CheckWin() && !CheckNotEmptyButtons())
                 {
