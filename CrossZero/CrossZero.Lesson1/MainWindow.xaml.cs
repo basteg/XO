@@ -66,7 +66,7 @@ namespace CrossZero.Lesson1
                     checkX.IsEnabled = false;
                     checkO.IsEnabled = false;
                     game.Start();
-                    Reload(game.state, false);
+                    Reload(game.State, false);
                 }
 
                 else if (checkO.IsChecked == true && checkX.IsChecked != true)
@@ -76,7 +76,7 @@ namespace CrossZero.Lesson1
                     checkX.IsEnabled = false;
                     checkO.IsEnabled = false;
                     game.Start();
-                    Reload(game.state, true);
+                    Reload(game.State, true);
                 }
               
             else
@@ -95,13 +95,13 @@ namespace CrossZero.Lesson1
         {
             try
             {
-                var field = game.fields;
+                var field = game.Fields;
                 for (int i = 0; i < field.Length; i++)
                 {
                     var button = buttons[i];
                     button.Content = field[i] == FieldGame.UserField ? user : field[i] == FieldGame.CompField ? computer : "";
                 }
-                switch (game.state)
+                switch (game.State)
                 {
                     case StateGame.NotStart:
                         MessageBox.Show("Игра не началась");
@@ -122,7 +122,7 @@ namespace CrossZero.Lesson1
                         text1.Content = "Игра в процессе";
                         if (doComputerStep)
                         {
-                            Reload(game.Step(ComputerPlay(game.fields), FieldGame.CompField), false);
+                            Reload(game.Step(ComputerPlay(game.Fields), FieldGame.CompField), false);
                         }
                         break;
                 }

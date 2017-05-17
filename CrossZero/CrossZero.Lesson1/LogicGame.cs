@@ -8,43 +8,43 @@ namespace CrossZero.Lesson1
 {
     class LogicGame
     {
-        public StateGame state; 
-        public FieldGame[] fields { get; private set; }
+        public StateGame State { get; private set; } 
+        public FieldGame[] Fields { get; private set; }
 
         public LogicGame()
         {
-            state = StateGame.NotStart;
-            fields = new FieldGame[9];
+            State = StateGame.NotStart;
+            Fields = new FieldGame[9];
         }
 
         public void Start()
         {
             
-            for (int i=0; i<fields.Length; i++)
+            for (int i=0; i<Fields.Length; i++)
             {
-                fields[i]= FieldGame.EmptyField;
+                Fields[i]= FieldGame.EmptyField;
             }
-            state = StateGame.InProgress;
+            State = StateGame.InProgress;
         }
 
         public void End()
         {
 
-            for (int i = 0; i < fields.Length; i++)
+            for (int i = 0; i < Fields.Length; i++)
             {
-                fields[i] = FieldGame.EmptyField;
+                Fields[i] = FieldGame.EmptyField;
             }
-            state = StateGame.NotStart;
+            State = StateGame.NotStart;
         }
 
 
         public void CompPlay()
         {
-                for (int i=0; i<fields.Length; i++)
+                for (int i=0; i<Fields.Length; i++)
                 {
-                    if (fields[i] == FieldGame.EmptyField)
+                    if (Fields[i] == FieldGame.EmptyField)
                     {
-                        fields[i] = FieldGame.CompField;
+                        Fields[i] = FieldGame.CompField;
                         return;
                     }
                 }
@@ -54,66 +54,66 @@ namespace CrossZero.Lesson1
         public StateGame Step(int index, FieldGame PlayerField)
         {
  
-            if (state != StateGame.InProgress)
+            if (State != StateGame.InProgress)
             {
-                return state;
+                return State;
                 
             }
-            if (index > -1 && index < fields.Length)
+            if (index > -1 && index < Fields.Length)
             {
-                if(fields[index] !=FieldGame.EmptyField)
+                if(Fields[index] !=FieldGame.EmptyField)
                 {
                     throw new ExceptionButtonClickClass();
                 }
-                fields[index] = PlayerField;
+                Fields[index] = PlayerField;
                 if (!CheckWin() && !CheckNotEmptyButtons())
                 {
-                    state = StateGame.NoWin;
+                    State = StateGame.NoWin;
                 }
             }
-            return state;
+            return State;
         }
 
         private bool CheckWin()
         {
-            if (fields[0] == fields[1] && fields[1] == fields[2] && fields[0] != FieldGame.EmptyField)
+            if (Fields[0] == Fields[1] && Fields[1] == Fields[2] && Fields[0] != FieldGame.EmptyField)
             {
-                state = (fields[0] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
+                State = (Fields[0] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
                 return true;
             }
-            if (fields[3] == fields[4] && fields[4] == fields[5] && fields[3] != FieldGame.EmptyField)
+            if (Fields[3] == Fields[4] && Fields[4] == Fields[5] && Fields[3] != FieldGame.EmptyField)
             {
-                state = (fields[3] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
+                State = (Fields[3] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
                 return true;
             }
-            if (fields[6] == fields[7] && fields[7] == fields[8] && fields[6] != FieldGame.EmptyField)
+            if (Fields[6] == Fields[7] && Fields[7] == Fields[8] && Fields[6] != FieldGame.EmptyField)
             {
-                state = (fields[6] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
+                State = (Fields[6] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
                 return true;
             }
-            if (fields[0] == fields[3] && fields[3] == fields[6] && fields[0] != FieldGame.EmptyField)
+            if (Fields[0] == Fields[3] && Fields[3] == Fields[6] && Fields[0] != FieldGame.EmptyField)
             {
-                state = (fields[0] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
+                State = (Fields[0] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
                 return true;
             }
-            if (fields[1] == fields[4] && fields[4] == fields[7] && fields[1] != FieldGame.EmptyField)
+            if (Fields[1] == Fields[4] && Fields[4] == Fields[7] && Fields[1] != FieldGame.EmptyField)
             {
-                state = (fields[1] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
+                State = (Fields[1] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
                 return true;
             }
-            if (fields[2] == fields[5] && fields[5] == fields[8] && fields[2] != FieldGame.EmptyField)
+            if (Fields[2] == Fields[5] && Fields[5] == Fields[8] && Fields[2] != FieldGame.EmptyField)
             {
-                state = (fields[2] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
+                State = (Fields[2] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
                 return true;
             }
-            if (fields[0] == fields[4] && fields[4] == fields[8] && fields[4] != FieldGame.EmptyField)
+            if (Fields[0] == Fields[4] && Fields[4] == Fields[8] && Fields[4] != FieldGame.EmptyField)
             {
-                state = (fields[4] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
+                State = (Fields[4] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
                 return true;
             }
-            if (fields[2] == fields[4] && fields[4] == fields[6] && fields[4] != FieldGame.EmptyField)
+            if (Fields[2] == Fields[4] && Fields[4] == Fields[6] && Fields[4] != FieldGame.EmptyField)
             {
-                state = (fields[4] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
+                State = (Fields[4] == FieldGame.CompField) ? StateGame.CompWin : StateGame.UserWin;
                 return true;
             }
             return false;
@@ -121,9 +121,9 @@ namespace CrossZero.Lesson1
 
         private bool CheckNotEmptyButtons()
         {
-            for (int i = 0; i < fields.Length; ++i)
+            for (int i = 0; i < Fields.Length; ++i)
             {
-                if (fields[i] == FieldGame.EmptyField)
+                if (Fields[i] == FieldGame.EmptyField)
                 {
                     return true;
                 }
