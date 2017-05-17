@@ -22,7 +22,17 @@ namespace CrossZero.Lesson1
     {
         public MainWindow()
         {
+            game = new LogicGame();
             InitializeComponent();
+            button11.Tag = 0;
+            button12.Tag = 1;
+            button13.Tag = 2;
+            button21.Tag = 3;
+            button22.Tag = 4;
+            button23.Tag = 5;
+            button31.Tag = 6;
+            button32.Tag = 7;
+            button33.Tag = 8;
             buttons = new[] { button11, button12, button13, button21, button22, button23, button31, button32, button33 };
 
             foreach (var i in buttons)
@@ -30,54 +40,111 @@ namespace CrossZero.Lesson1
                 i.Click += I_Click;
             }
         }
-
+        LogicGame game;
         string user = "";
         string computer = "";
         Button[] buttons;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Button[] buttons = { button11, button12, button13, button21, button22, button23, button31, button32, button33 };
+            game.Start();
             foreach (var i in buttons)
             {
                 i.IsEnabled = true;
                 i.Content = "";
             }
 
-            if (checkO.IsChecked == true && checkX.IsChecked != true)
+            if (checkX.IsChecked==true && checkO.IsChecked== false)
             {
-                ComputerPlay();
+                Reload(game.state, false);
             }
 
-            else if (checkO.IsChecked == checkX.IsChecked)
+            else if (checkO.IsChecked == true && checkX.IsChecked != true)
+            {
+                Reload(game.state, true);
+            }
+
+            else 
             { MessageBox.Show("Выберите маркер"); }
+
         }
 
-        private bool Wins()
+        private void Reload(StateGame state, bool doComputerStep)
         {
-            if (((string)button11.Content != "" && button11.Content == button12.Content && button11.Content == button13.Content)
-                || ((string)button11.Content != "" && button11.Content == button21.Content && button11.Content == button31.Content)
-                || ((string)button12.Content != "" && button12.Content == button22.Content && button12.Content == button32.Content)
-                || ((string)button13.Content != "" && button13.Content == button23.Content && button13.Content == button33.Content)
-                || ((string)button21.Content != "" && button21.Content == button22.Content && button21.Content == button23.Content)
-                || ((string)button31.Content != "" && button31.Content == button32.Content && button31.Content == button33.Content)
-                || ((string)button11.Content != "" && button11.Content == button22.Content && button11.Content == button33.Content)
-                || ((string)button13.Content != "" && button13.Content == button22.Content && button13.Content == button31.Content))
+            var field = game.fields;
+            for (int i = 0; i < field.Length; i++)
             {
-                return true;
+
+                // Ищем среди всех элементов формы элемент с нужным названием (button + (i + 1)), это будет кнопка
+                //var button = ((Button)Controls.Find("button" + (i + 1), false)[0]);
+                var button = buttons[i];
+                // определяем, каким значением ее заполнять
+                button.Content = field[i] == FieldGame.UserField ? user : field[i] == FieldGame.CompField ? computer : "";
             }
-            else return false;
+            switch (game.state)
+            {
+                case StateGame.NotStart:
+                    MessageBox.Show("Игра не началась");
+                    break;
+                case StateGame.NoWin:
+                    MessageBox.Show("Ничья");
+                    EndGame();
+                    break;
+                case StateGame.CompWin:
+                    MessageBox.Show("Компьютер выиграл");
+                    EndGame();
+                    break;
+                case StateGame.UserWin:
+                    MessageBox.Show("Вы выиграли");
+                    EndGame();
+                    break;
+                case StateGame.InProgress:
+                    text1.Content = "Игра в процессе";
+                    if (doComputerStep)
+                    {
+                        Reload(game.Step(ComputerPlay(game.fields), FieldGame.CompField), false);
+                    }
+                    break;
+            }
         }
 
-        private bool NoWiners()
+        private int ComputerPlay(FieldGame[] fields)
         {
-            foreach (var i in buttons)
+            for (int i = 0; i < fields.Length; ++i)
             {
-                if ((string)i.Content == "")
-                { return false; }
+                if (fields[i] == FieldGame.EmptyField)
+                {
+                    return i;
+                }
             }
-            return true;
+            return -1;
         }
+
+        //private bool Wins()
+        //{
+        //    if (((string)button11.Content != "" && button11.Content == button12.Content && button11.Content == button13.Content)
+        //        || ((string)button11.Content != "" && button11.Content == button21.Content && button11.Content == button31.Content)
+        //        || ((string)button12.Content != "" && button12.Content == button22.Content && button12.Content == button32.Content)
+        //        || ((string)button13.Content != "" && button13.Content == button23.Content && button13.Content == button33.Content)
+        //        || ((string)button21.Content != "" && button21.Content == button22.Content && button21.Content == button23.Content)
+        //        || ((string)button31.Content != "" && button31.Content == button32.Content && button31.Content == button33.Content)
+        //        || ((string)button11.Content != "" && button11.Content == button22.Content && button11.Content == button33.Content)
+        //        || ((string)button13.Content != "" && button13.Content == button22.Content && button13.Content == button31.Content))
+        //    {
+        //        return true;
+        //    }
+        //    else return false;
+        //}
+
+        //private bool NoWiners()
+        //{
+        //    foreach (var i in buttons)
+        //    {
+        //        if ((string)i.Content == "")
+        //        { return false; }
+        //    }
+        //    return true;
+        //}
 
         private void EndGame()
         {
@@ -89,20 +156,8 @@ namespace CrossZero.Lesson1
 
         private void I_Click(object sender, RoutedEventArgs e)
         {
-            ((Button)sender).Content = user;
-            ((Button)sender).IsEnabled = false;
 
-            if (Wins())
-            {
-                MessageBox.Show("Вы выиграли");
-                EndGame();
-            }
-            else if (NoWiners())
-            {
-                MessageBox.Show("Ничья");
-                EndGame();
-            }
-            else ComputerPlay();
+            Reload(game.Step(Convert.ToInt32(((Button)sender).Tag), FieldGame.UserField), true);
         }
 
         private void CheckX_Checked(object sender, RoutedEventArgs e)
@@ -117,31 +172,7 @@ namespace CrossZero.Lesson1
             this.computer = "X";
         }
 
-        private void ComputerPlay()
-        {
-            foreach (var i in buttons)
-            {
-                if ((string)i.Content == "")
-                {
-                    i.Content = this.computer;
-                    i.IsEnabled = false;
-                    if (Wins())
-                    {
-                        MessageBox.Show("Вы проиграли");
-                        EndGame();
-                    }
-                    else if (NoWiners())
-                    {
-                        MessageBox.Show("Ничья");
-                        EndGame();
-                    }
-                    return;
-                }
-            }
-
-            MessageBox.Show("Ничья!");
-            EndGame();
-        }
+       
     }
 }
 
