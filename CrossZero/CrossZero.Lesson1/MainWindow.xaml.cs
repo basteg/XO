@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,10 @@ namespace CrossZero.Lesson1
     {
         public MainWindow()
         {
-
+            //using (vat str = new StreamWriter())
             game = new LogicGame();
             InitializeComponent();
+            //StatisticWindow = new Window1();
             button11.Tag = 0;
             button12.Tag = 1;
             button13.Tag = 2;
@@ -44,15 +46,16 @@ namespace CrossZero.Lesson1
            
         }
         LogicGame game;
-        string user = "";
+        public static string user = "";
         string computer = "";
         Button[] buttons;
+        public static int Counter= 0;
+        //Window1 StatisticWindow;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                
             foreach (var i in buttons)
                 {
                     i.IsEnabled = true;
@@ -61,7 +64,7 @@ namespace CrossZero.Lesson1
 
                 if (checkX.IsChecked == true && checkO.IsChecked == false)
                 {
-                    this.user = "X";
+                    user = "X";
                     this.computer = "O";
                     checkX.IsEnabled = false;
                     checkO.IsEnabled = false;
@@ -71,7 +74,7 @@ namespace CrossZero.Lesson1
 
                 else if (checkO.IsChecked == true && checkX.IsChecked != true)
                 {
-                    this.user = "O";
+                    user = "O";
                     this.computer = "X";
                     checkX.IsEnabled = false;
                     checkO.IsEnabled = false;
@@ -87,7 +90,8 @@ namespace CrossZero.Lesson1
             {
                 MessageBox.Show(ex.Message);
             }
-
+            Counter = 0;
+            countText.Content = "";
             
         }
 
@@ -148,7 +152,7 @@ namespace CrossZero.Lesson1
       
         private void EndGame()
         {
-            game.End();
+            game.End(user);
             foreach (var j in buttons)
             {
                 j.IsEnabled = false;
@@ -157,6 +161,7 @@ namespace CrossZero.Lesson1
             text1.Content = "";
             checkX.IsEnabled = true;
             checkO.IsEnabled = true;
+
         }
 
         private void I_Click(object sender, RoutedEventArgs e)
@@ -164,6 +169,8 @@ namespace CrossZero.Lesson1
             try
             {
                 Reload(game.Step(Convert.ToInt32(((Button)sender).Tag), FieldGame.UserField), true);
+                Counter++;
+                countText.Content = Counter.ToString();
             }
           
             catch (ExceptionButtonClickClass ex)
@@ -188,7 +195,17 @@ namespace CrossZero.Lesson1
         {
             //this.user = "O";
             //this.computer = "X";
-           
+        }
+
+        
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            string filePath = @"c:\stat\stats.json";
+            var data=Serializer.GetData(filePath);
+            var StatWin = new StatisticWindow();
+            StatWin.DataGritStat.ItemsSource = data;
+            StatWin.Show();
         }
 
 
