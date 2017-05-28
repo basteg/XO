@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CrossZero.Lesson1;
+using WebApplicationStatistic.Models;
 
 namespace WebApplicationStatistic.Controllers
 {
     public class HomeController : Controller
     {
-        string filePath = @"c:\stat\stats.json";
-
+        static StatisticsDBEntities db = new StatisticsDBEntities();
 
         public ActionResult Index()
         {
-            ViewBag.sg = Serializer.GetData(filePath);
+            ViewBag.sg = db.CrossZeroStat.ToList();
 
             return View();
         }
