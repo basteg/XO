@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CrossZero.Lesson1
 {
-    enum StateGame
+    public enum StateGame
     {
             InProgress,
             NoWin,

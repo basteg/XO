@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CrossZero.Lesson1
 {
-    enum FieldGame
+    public enum FieldGame
     {
         EmptyField,
         CompField,

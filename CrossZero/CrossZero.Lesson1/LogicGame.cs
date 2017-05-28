@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CrossZero.Lesson1
 {
-    class LogicGame
+    public class LogicGame
     {
         public StateGame State { get; private set; } 
         public FieldGame[] Fields { get; private set; }
@@ -25,16 +25,18 @@ namespace CrossZero.Lesson1
                 Fields[i]= FieldGame.EmptyField;
             }
             State = StateGame.InProgress;
+
         }
 
-        public void End()
+        public void End(string Marker)
         {
-
+            SaveStat(Marker);
             for (int i = 0; i < Fields.Length; i++)
             {
                 Fields[i] = FieldGame.EmptyField;
             }
             State = StateGame.NotStart;
+
         }
 
 
@@ -130,6 +132,36 @@ namespace CrossZero.Lesson1
             }
             return false;
         }
+
+         List<Statistic> data;
+
+        private void SaveStat(string Marker)
+        {
+            try
+            {
+                
+                string filePath = @"c:\stat\stats.json";
+                //Serializer.SetData(filePath, data);
+                data = Serializer.GetData(filePath);
+ 
+
+                data.Add(new Statistic()
+
+                {
+                    Data = DateTime.Now,
+                    CountUserStep = MainWindow.Counter,
+                    Marker = Marker,
+                    Result = State == StateGame.CompWin ? "Компьютер" : State == StateGame.UserWin ? "Пользователь" : "Ничья"
+                });
+                Serializer.SetData(filePath, data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+        }
+
     }
 
 }

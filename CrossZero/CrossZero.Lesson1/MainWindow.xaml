@@ -20,6 +20,8 @@
         <Button x:Name="button33" Content="" HorizontalAlignment="Left" Margin="110,110,0,0" VerticalAlignment="Top" Width="50" Height="50" IsEnabled="False"/>
         <Button Content="Start" HorizontalAlignment="Left" Margin="334,250,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Label x:Name="text1" Content="" HorizontalAlignment="Left" Margin="305,75,0,0" VerticalAlignment="Top" Width="159"/>
+        <Label x:Name="countText" Content="" HorizontalAlignment="Left" Margin="305,39,0,0" VerticalAlignment="Top" Width="125"/>
+        <Button Content="Statistic" HorizontalAlignment="Left" Margin="334,283,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
 
     </Grid>
 </Window>
