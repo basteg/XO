@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace CrossZero.Lesson1
 {
     [JsonObject]
-    class Statistic
+    public class Statistic
     {
         [JsonProperty(PropertyName = "Кол-во ходов пользователя")]
         public int CountUserStep { get; set; }

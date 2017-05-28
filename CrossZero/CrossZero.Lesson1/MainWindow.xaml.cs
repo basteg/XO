@@ -45,15 +45,17 @@ namespace CrossZero.Lesson1
             }
            
         }
-        LogicGame game;
+        public LogicGame game;
         public static string user = "";
         string computer = "";
         Button[] buttons;
-        public static int Counter= 0;
+        public static int Counter= 1;
         //Window1 StatisticWindow;
+        public static StateGame? GetState = null; 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            GetState = null;
             try
             {
             foreach (var i in buttons)
@@ -152,6 +154,7 @@ namespace CrossZero.Lesson1
       
         private void EndGame()
         {
+            GetState = game.State;
             game.End(user);
             foreach (var j in buttons)
             {
@@ -161,6 +164,8 @@ namespace CrossZero.Lesson1
             text1.Content = "";
             checkX.IsEnabled = true;
             checkO.IsEnabled = true;
+            
+
 
         }
 

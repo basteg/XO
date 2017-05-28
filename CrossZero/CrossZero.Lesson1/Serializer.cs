@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CrossZero.Lesson1
 {
-    class Serializer
+    public class Serializer
     {
         //JsonSerializer js = new JsonSerializer();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CrossZero.Lesson1
 {
-    class LogicGame
+    public class LogicGame
     {
         public StateGame State { get; private set; } 
         public FieldGame[] Fields { get; private set; }
