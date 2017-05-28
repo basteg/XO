@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -132,24 +133,22 @@ namespace CrossZero.Lesson1
             }
             return false;
         }
-
-         List<Statistic> data;
+        
+        public static StatisticsDBEntities1 db = new StatisticsDBEntities1();
 
         private void SaveStat(string Marker)
         {
             try
             {
-                string filePath = @"c:\stat\stats.json";
-                //Serializer.SetData(filePath, data);
-                data = Serializer.GetData(filePath);
-                data.Add(new Statistic()
+                
+                db.CrossZeroStat.Add(new CrossZeroStat() 
                 {
-                    Data = DateTime.Now,
-                    CountUserStep = MainWindow.Counter+1,
+                    Date = DateTime.Now,
+                    CounterUserSteps = MainWindow.Counter+1,
                     Marker = Marker,
-                    Result = State == StateGame.CompWin ? "Компьютер" : State == StateGame.UserWin ? "Пользователь" : "Ничья"
+                    Winner = State == StateGame.CompWin ? "Компьютер" : State == StateGame.UserWin ? "Пользователь" : "Ничья"
                 });
-                Serializer.SetData(filePath, data);
+                db.SaveChanges();
             }
             catch (Exception ex)
             {
