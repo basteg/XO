@@ -203,10 +203,9 @@ namespace CrossZero.Lesson1
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            string filePath = @"c:\stat\stats.json";
-            var data=Serializer.GetData(filePath);
+            
             var StatWin = new StatisticWindow();
-            StatWin.DataGritStat.ItemsSource = data;
+            StatWin.DataGritStat.ItemsSource = LogicGame.db.CrossZeroStat.ToList();
             StatWin.Show();
         }
 
