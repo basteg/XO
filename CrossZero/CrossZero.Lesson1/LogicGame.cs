@@ -139,17 +139,13 @@ namespace CrossZero.Lesson1
         {
             try
             {
-                
                 string filePath = @"c:\stat\stats.json";
                 //Serializer.SetData(filePath, data);
                 data = Serializer.GetData(filePath);
- 
-
                 data.Add(new Statistic()
-
                 {
                     Data = DateTime.Now,
-                    CountUserStep = MainWindow.Counter,
+                    CountUserStep = MainWindow.Counter+1,
                     Marker = Marker,
                     Result = State == StateGame.CompWin ? "Компьютер" : State == StateGame.UserWin ? "Пользователь" : "Ничья"
                 });
@@ -159,9 +155,7 @@ namespace CrossZero.Lesson1
             {
                 Console.WriteLine(ex.Message);
             }
-            
         }
-
     }
 
 }

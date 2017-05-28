@@ -49,13 +49,11 @@ namespace CrossZero.Lesson1
         public static string user = "";
         string computer = "";
         Button[] buttons;
-        public static int Counter= 1;
+        public static int Counter= 0;
         //Window1 StatisticWindow;
-        public static StateGame? GetState = null; 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GetState = null;
             try
             {
             foreach (var i in buttons)
@@ -154,7 +152,6 @@ namespace CrossZero.Lesson1
       
         private void EndGame()
         {
-            GetState = game.State;
             game.End(user);
             foreach (var j in buttons)
             {
