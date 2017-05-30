@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossZero.Lesson1", "CrossZ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationStatistic", "WebApplicationStatistic\WebApplicationStatistic.csproj", "{F9DB5C19-0504-4A2A-AA04-D59026B06EA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossZero.Lesson1Tests", "CrossZero.Lesson1Tests\CrossZero.Lesson1Tests.csproj", "{1105BF21-6940-4A8C-B4B3-449CD52889C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F9DB5C19-0504-4A2A-AA04-D59026B06EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9DB5C19-0504-4A2A-AA04-D59026B06EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9DB5C19-0504-4A2A-AA04-D59026B06EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1105BF21-6940-4A8C-B4B3-449CD52889C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1105BF21-6940-4A8C-B4B3-449CD52889C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1105BF21-6940-4A8C-B4B3-449CD52889C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1105BF21-6940-4A8C-B4B3-449CD52889C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

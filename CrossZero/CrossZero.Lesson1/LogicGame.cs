@@ -9,7 +9,7 @@ namespace CrossZero.Lesson1
 {
     public class LogicGame
     {
-        public StateGame State { get; private set; } 
+        public StateGame State { get; set; } 
         public FieldGame[] Fields { get; private set; }
 
         public LogicGame()
@@ -77,7 +77,7 @@ namespace CrossZero.Lesson1
             return State;
         }
 
-        private bool CheckWin()
+        public bool CheckWin()
         {
             if (Fields[0] == Fields[1] && Fields[1] == Fields[2] && Fields[0] != FieldGame.EmptyField)
             {

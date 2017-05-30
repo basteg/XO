@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CrossZero.Lesson1
 {
-    class ExceptionButtonClickClass : Exception
+    public class ExceptionButtonClickClass : Exception
     {
 
         public string ReturnMess()
